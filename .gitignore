@@ -1,0 +1,11 @@
+/build
+/out
+/bin
+/lib
+/data
+.idea/*
+/target
+*.jar
+*.zip
+*.class
+*.iml
