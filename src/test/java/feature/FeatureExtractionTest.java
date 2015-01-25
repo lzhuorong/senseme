@@ -13,15 +13,16 @@ import java.util.List;
 public class FeatureExtractionTest {
     @Test
     public void featureExtractionTest(){
-        String file="data/dataset1_20150117.csv";
-        CsvDataSource csvDataSource=new CsvDataSource();
-        List<Record> list=csvDataSource.getRecords(file,2.56,1.28);
-        Preprocess preprocess=new Preprocess();
-        list=preprocess.extendWorldCordData(list);
-        FeatureExtraction featureExtraction=new FeatureExtraction();
-        Dataset dataset=featureExtraction.featureExtraction(list);
+        String[] input={
+                "data/dataset1_trousers_verticaloutside_20150117.csv",
+                "data/dataset2_trousers_landinside_20150125.csv"
+        };
         String output="data/feature.txt";
-        File outputfile=new File(output);
-        dataset.serializeToFile(outputfile);
+        double windowsize=2.56;
+        double overlapsize=1.28;
+        FeatureExtraction featureExtraction=new FeatureExtraction();
+        Dataset dataset=featureExtraction.featureExtraction(windowsize,overlapsize,input);
+        File file=new File(output);
+        dataset.serializeToFile(file);
     }
 }

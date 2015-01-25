@@ -23,7 +23,7 @@ public class CsvDataSource implements DataSource{
             while((line=br.readLine())!=null){
                 String[] splits=line.split(",");
                 double[] sensordata=new double[Constant.num_sensors];
-                String type,position,uuid;
+                String type,position,direction,uuid;
                 int index=0;
                 int start=1;
                 int end=18;
@@ -32,9 +32,10 @@ public class CsvDataSource implements DataSource{
                 }
                 type=splits[19];
                 position=splits[20];
+                direction=splits[23];
                 uuid=splits[25];
                 if(current==null){
-                    current=new Record(type,position,uuid,Constant.num_sensors);
+                    current=new Record(type,position,direction,uuid,Constant.num_sensors);
                     if(pre!=null){
                         int s=size-overlapsize;
                         int t=s+overlapsize-1;
@@ -46,13 +47,13 @@ public class CsvDataSource implements DataSource{
                         current.addRow(sensordata);
                     }else{
                         pre=current;
-                        current=new Record(type,position,uuid,Constant.num_sensors);
+                        current=new Record(type,position,direction,uuid,Constant.num_sensors);
                         current.addRow(sensordata);
                     }
                 }else if(current.getRowCount()==size){
                     list.add(current);
                     pre=current;
-                    current=new Record(type,position,uuid,Constant.num_sensors);
+                    current=new Record(type,position,direction,uuid,Constant.num_sensors);
                     int s=size-overlapsize;
                     int t=s+overlapsize-1;
                     current.copyData(pre,s,t);

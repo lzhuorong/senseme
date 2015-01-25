@@ -1,6 +1,7 @@
 package feature;
 
 import data.Constant;
+import data.CsvDataSource;
 import data.Record;
 import org.apache.commons.math3.stat.correlation.Covariance;
 import org.apache.commons.math3.stat.correlation.KendallsCorrelation;
@@ -11,6 +12,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.jtransforms.fft.DoubleFFT_1D;
 import util.Sort;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,21 @@ import java.util.List;
  * Created by xie on 15-1-18.
  */
 public class FeatureExtraction {
+
+    public Dataset featureExtraction(double windowsize,double overlapsize,String[] files){
+        CsvDataSource csvDataSource=new CsvDataSource();
+        Preprocess preprocess=new Preprocess();
+        FeatureExtraction featureExtraction=new FeatureExtraction();
+        Dataset totalDataset=new Dataset();
+        for(int i=0;i<files.length;i++){
+            String filename=files[i];
+            List<Record> list=csvDataSource.getRecords(filename,windowsize,overlapsize);
+            list=preprocess.extendWorldCordData(list);
+            Dataset dataset=featureExtraction.featureExtraction(list);
+            totalDataset.merge(dataset);
+        }
+        return totalDataset;
+    }
 
     public Dataset featureExtraction(List<Record> recordList){
         Dataset dataset=new Dataset();

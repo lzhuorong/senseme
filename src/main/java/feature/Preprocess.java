@@ -17,8 +17,9 @@ public class Preprocess {
         for(Record record:list){
             String type=record.getType();
             String position=record.getPosition();
+            String direction=record.getDirection();
             String uuid=record.getUuid();
-            Record rec=new Record(type,position,uuid,record.getCols()+6);
+            Record rec=new Record(type,position,direction,uuid,record.getCols()+6);
             List<double[]> data=record.getData();
             for(int i=0;i<data.size();i++){
                 double[] row=data.get(i);

@@ -11,13 +11,15 @@ import java.util.List;
 public class Record {
     private String type;
     private String position;
+    private String direction;
     private String uuid;
     private int cols;
     private List<double[]> data;
 
-    public Record(String type,String position,String uuid,int cols){
+    public Record(String type,String position,String direction,String uuid,int cols){
         this.setType(type);
         this.setPosition(position);
+        this.setDirection(direction);
         this.setUuid(uuid);
         this.setCols(cols);
         setData(new ArrayList<double[]>());
@@ -33,6 +35,7 @@ public class Record {
             }
             builder.append(type+" ");
             builder.append(position+" ");
+            builder.append(direction+" ");
             builder.append(uuid+"\n");
         }
         return builder.toString();
@@ -136,5 +139,13 @@ public class Record {
 
     public void setData(List<double[]> data) {
         this.data = data;
+    }
+
+    public String getDirection(){
+        return direction;
+    }
+
+    public void setDirection(String direction){
+        this.direction=direction;
     }
 }

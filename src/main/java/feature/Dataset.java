@@ -18,6 +18,12 @@ public class Dataset {
         this.dataset.add(data);
     }
 
+    public void merge(Dataset mergeDataset){
+        for(MLData mlData:mergeDataset.getDataset()){
+            addMLData(mlData);
+        }
+    }
+
     public boolean serializeToFile(File file){
         try {
             PrintWriter pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(file)));
@@ -31,5 +37,9 @@ public class Dataset {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<MLData> getDataset(){
+        return dataset;
     }
 }
